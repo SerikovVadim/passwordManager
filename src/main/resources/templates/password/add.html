@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}"></title>
+</head>
+<body>
+
+<h1>Добавление логина и пароля в базу</h1>
+<form th:method="POST" th:action="@{/passwords/add}" th:object="${password}">
+    <label for="resourceName">Название ресурса: </label>
+    <input type="text" th:field="*{resourceName}" id="resourceName">
+    <div style="color:red" th:if="${#fields.hasErrors('resourceName')}" th:errors="*{resourceName}">ResourceName error</div>
+    <br/>
+    <label for="login">Логин: </label>
+    <input type="text" th:field="*{login}" id="login">
+    <div style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login error</div>
+    <br/>
+    <label for="password">Пароль: </label>
+    <input type="text" th:field="*{password}" id="password">
+    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
+    <br>
+    <input type="submit" value="Сохранить в базу"/>
+</form>
+
+<br>
+<a th:href="'/passwords'">Вернуть к списку ресурсов</a>
+</body>
+</html>

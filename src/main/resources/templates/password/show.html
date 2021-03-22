@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}"></title>
+</head>
+<body>
+<a th:href="'/'">Вернуться на главную страницу</a>
+<br>
+<p><a th:href="'/passwords/add'">Добавить новый пароль в базу</a></p>
+<div th:switch="${passwordList}">
+    <h2 th:case="null">Список пуст!</h2>
+    <div th:case="*">
+        <h2>Список все ресурсов с паролями</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Название ресурса</th>
+                <th>Логин</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="element : ${passwordList}">
+                <td th:text="${element.resourceName}"></td>
+                <td th:text="${element.login}"></td>
+                <td><a th:href="@{/passwords/{id}(id=${element.id})}">Посмотреть пароль</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

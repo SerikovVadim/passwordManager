@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}"></title>
+</head>
+<body>
+<h1>Редактирование паролей</h1>
+<form th:method="PATCH" th:action="@{/passwords/{id}(id = ${password.getId()})}" th:object="${password}">
+    <label for="resourceName">Название ресурса: </label>
+    <input type="text" th:field="*{resourceName}" id="resourceName">
+    <div style="color:red" th:if="${#fields.hasErrors('resourceName')}" th:errors="*{resourceName}">ResourceName error</div>
+    <br/>
+    <label for="login">Логин: </label>
+    <input type="text" th:field="*{login}" id="login">
+    <div style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login error</div>
+    <br/>
+    <label for="password">Пароль: </label>
+    <input type="text" th:field="*{password}" id="password">
+    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
+    <br>
+    <input type="submit" value="Обновить пароль в базе"/>
+</form>
+<br>
+<form th:method="DELETE" th:action="@{/passwords/{id}(id = ${password.getId()})}">
+    <input type="submit" value="Удалить">
+</form>
+<br>
+<a th:href="'/films'">Вернуть к списку паролей</a>
+</body>
+</html>
