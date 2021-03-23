@@ -5,6 +5,10 @@
     <title th:text="${pageTitle}"></title>
 </head>
 <body>
-
+<a th:href="'/passwords'">Страница с паролями</a>
+<br>
+<form action="/auth/logout" method="POST">
+    <button type="submit">Выйти из профиля</button>
+</form>
 </body>
 </html>
