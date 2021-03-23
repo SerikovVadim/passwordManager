@@ -5,7 +5,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "passwordManager")
+@Table(schema = "public", name = "password")
 public class Password {
 
     @Id
@@ -19,6 +19,9 @@ public class Password {
     @NotEmpty(message = "Пароль не должен быть пустым")
     @Size(max = 50, message = "Длина пароля должна быть не более 50 символов")
     private String password;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Password() {
     }
@@ -53,5 +56,13 @@ public class Password {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

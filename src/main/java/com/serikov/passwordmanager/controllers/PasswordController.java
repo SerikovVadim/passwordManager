@@ -2,6 +2,8 @@ package com.serikov.passwordmanager.controllers;
 
 import com.serikov.passwordmanager.entity.Password;
 import com.serikov.passwordmanager.service.PasswordService;
+import com.serikov.passwordmanager.util.AuthenticationUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,14 +19,17 @@ import java.util.Optional;
 public class PasswordController {
 
     private final PasswordService passwordService;
+    private final AuthenticationUser authenticationUser;
 
-    public PasswordController(PasswordService passwordService) {
+    @Autowired
+    public PasswordController(PasswordService passwordService, AuthenticationUser authenticationUser) {
         this.passwordService = passwordService;
+        this.authenticationUser = authenticationUser;
     }
 
     @GetMapping
     public String index(Model model) {
-        List<Password> passwordList = passwordService.findByAll();
+        List<Password> passwordList = authenticationUser.getUser().getPasswordList();
         model.addAttribute("passwordList", passwordList);
         model.addAttribute("pageTitle", "Менеджер паролей");
         return "password/show";
@@ -44,6 +49,7 @@ public class PasswordController {
         if (bindingResult.hasErrors()) {
             return "/password/add";
         }
+        password.setUser(authenticationUser.getUser());
         passwordService.save(password);
         return "redirect:/passwords";
     }
@@ -78,9 +84,11 @@ public class PasswordController {
         if (bindingResult.hasErrors()) {
             return "password/edit";
         }
+        password.setUser(authenticationUser.getUser());
         passwordService.save(password);
         return "redirect:/passwords";
     }
+
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
