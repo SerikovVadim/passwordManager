@@ -78,7 +78,7 @@ public class PasswordController {
         return "password/edit";
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("/{id}")
     public String edit(@ModelAttribute("password") @Valid Password password,
                        BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

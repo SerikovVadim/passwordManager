@@ -15,6 +15,11 @@ import java.util.Optional;
 public class AuthenticationUser {
     private final UserService userService;
 
+
+    /**
+     * Получить текущего пользователя из аутентификации
+     * @param userService
+     */
     @Autowired
     public AuthenticationUser(UserService userService) {
         this.userService = userService;
