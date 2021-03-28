@@ -5,7 +5,7 @@
 
 
 Для подключения к базе данных, в файле application.property поменяйте следующие значения:
-# "passwordManager" - название базы данных можете установить своё или оставить это
+"passwordManager" - название базы данных можете установить своё или оставить это
 spring.datasource.url=jdbc:postgresql://localhost:5432/passwordManager 
 
 #Введите свой логин от базы данных
